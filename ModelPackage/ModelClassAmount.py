@@ -1,4 +1,4 @@
-class ReliefModel():
+class ReliefModelAmount():
     def __init__(self, name, age, location, householdSize, employmentStatus):
         self.name = name
         self.age = age
@@ -9,14 +9,14 @@ class ReliefModel():
 
     def gradeAge(self):
         personalAge = self.age
-        if (55 < personalAge < 90):
-            self.criteriaDetail += ["Lower Class"]
-        elif (18 < personalAge < 45):
-            self.criteriaDetail += ["Middle Class"]
-        elif (0 < personalAge <= 18):
-            self.criteriaDetail += ["Higher Class"]
+        if (50 <= personalAge <= 100):
+            self.criteriaDetail += [10000]
+        elif (34 <= personalAge <= 49):
+            self.criteriaDetail += [8000]
+        elif (18 <= personalAge <= 33):
+            self.criteriaDetail += [5000]
         else:
-            self.criteriaDetail += ["Not Eligible"]
+            self.criteriaDetail += [0]
 
     def gradeEmploymentStatus(self):
         personalES = self.employmentStatus
@@ -31,7 +31,7 @@ class ReliefModel():
 
     def gradeHouseHoldSize(self):
         personalHS = self.householdSize
-        if (personalHS > 8):
+        if (personalHS >= 8):
             self.criteriaDetail += [10000]
         elif (3 < personalHS <= 7):
             self.criteriaDetail += [8000]
@@ -57,10 +57,6 @@ class ReliefModel():
         self.gradeHouseHoldSize()
         self.gradeEmploymentStatus()
 
-    def printGradeResult(self):
-        self.gradeTheParameters()
-        print(self.criteriaDetail)
-
     def chooseClass(self):
         self.gradeTheParameters()
         theList = self.criteriaDetail
@@ -68,4 +64,4 @@ class ReliefModel():
         for i in theList:
             count += i
             avg = count / 4
-        print(f"{self.name}, you are qualified for the #{avg}")
+        print(f"{self.name}, you are qualified for the #{avg:,}")

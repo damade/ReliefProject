@@ -9,11 +9,11 @@ class ReliefModel():
 
     def gradeAge(self):
         personalAge = self.age
-        if (55 < personalAge < 90):
+        if (50 <= personalAge <= 100):
             self.criteriaDetail += ["Lower Class"]
-        elif (18 < personalAge < 45):
+        elif (34 <= personalAge <= 49):
             self.criteriaDetail += ["Middle Class"]
-        elif (0 < personalAge <= 18):
+        elif (18 <= personalAge <= 33):
             self.criteriaDetail += ["Higher Class"]
         else:
             self.criteriaDetail += ["Not Eligible"]
@@ -31,7 +31,7 @@ class ReliefModel():
 
     def gradeHouseHoldSize(self):
         personalHS = self.householdSize
-        if (personalHS > 8):
+        if (personalHS >= 8):
             self.criteriaDetail += ["Lower Class"]
         elif (3 < personalHS <= 7):
             self.criteriaDetail += ["Middle Class"]
@@ -75,4 +75,5 @@ class ReliefModel():
             for v in sorted(count.items()):
                 newArr += [v]
             theLead = newArr[len(newArr) - 1][0]
-            print(f"{self.name}, you are qualified for the {theLead}")
+            amountDict = {"Higher Class": 5000, "Middle Class": 8000, "Lower Class": 10000}
+            print(f"{self.name}, you are qualified for the #{amountDict[theLead]:,}")
