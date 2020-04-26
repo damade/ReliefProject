@@ -21,35 +21,35 @@ class ReliefModel():
     def gradeEmploymentStatus(self):
         personalES = self.employmentStatus
         if (personalES == "unemployed"):
-            self.criteriaDetail += ["Lower Class"]
-        elif (personalES == "self-employed"):
-            self.criteriaDetail += ["Middle Class"]
-        elif (personalES == "student"):
-            self.criteriaDetail += ["Higher Class"]
+            self.criteriaDetail += [10000]
+        elif (personalES == "self-employed" or personalES == "low-income"):
+            self.criteriaDetail += [8000]
+        elif (personalES == "student" or personalES == "employed"):
+            self.criteriaDetail += [5000]
         else:
-            self.criteriaDetail += ["Not Eligible"]
+            self.criteriaDetail += [0]
 
     def gradeHouseHoldSize(self):
         personalHS = self.householdSize
         if (personalHS > 8):
-            self.criteriaDetail += ["Lower Class"]
+            self.criteriaDetail += [10000]
         elif (3 < personalHS <= 7):
-            self.criteriaDetail += ["Middle Class"]
+            self.criteriaDetail += [8000]
         elif (0 < personalHS <= 3):
-            self.criteriaDetail += ["Higher Class"]
+            self.criteriaDetail += [5000]
         else:
-            self.criteriaDetail += ["Not Eligible"]
+            self.criteriaDetail += [0]
 
     def gradeLocation(self):
         personalLocation = self.location
         if (personalLocation == "rural"):
-            self.criteriaDetail += ["Lower Class"]
+            self.criteriaDetail += [10000]
         elif (personalLocation == "metropolitan"):
-            self.criteriaDetail += ["Middle Class"]
+            self.criteriaDetail += [8000]
         elif (personalLocation == "urban"):
-            self.criteriaDetail += ["Higher Class"]
+            self.criteriaDetail += [5000]
         else:
-            self.criteriaDetail += ["Not Eligible"]
+            self.criteriaDetail += [0]
 
     def gradeTheParameters(self):
         self.gradeAge()
@@ -64,16 +64,8 @@ class ReliefModel():
     def chooseClass(self):
         self.gradeTheParameters()
         theList = self.criteriaDetail
-        if "Not Eligible" in theList:
-            print(f"{self.name}, you are not Eligible")
-        else:
-            count = {}
-            for i in theList:
-                count.setdefault(i, 0)
-                count[i] = count[i] + 1
-            sorted(count.values())
-            newArr = []
-            for v in sorted(count.items()):
-                newArr += [v]
-            theLead = newArr[len(newArr) - 1][0]
-            print(f"{self.name}, you are qualified for the {theLead}")
+        count = 0
+        for i in theList:
+            count += i
+            avg = count / 4
+        print(f"{self.name}, you are qualified for the #{avg}")
